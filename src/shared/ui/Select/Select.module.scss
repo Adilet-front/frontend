@@ -1,0 +1,26 @@
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  color: #1a202c;
+}
+
+.select {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: var(--surface-soft);
+  color: var(--purple-900);
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.select:focus {
+  outline: 2px solid rgba(107, 70, 193, 0.4);
+  border-color: var(--primary-hover);
+}

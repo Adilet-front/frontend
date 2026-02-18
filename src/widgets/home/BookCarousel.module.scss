@@ -1,0 +1,103 @@
+.section {
+  display: grid;
+  gap: 14px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.header h2 {
+  margin: 0;
+  color: #1a2236;
+  font-size: clamp(1.25rem, 1.45vw + 0.72rem, 1.76rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.controls {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.navButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(158, 172, 204, 0.58);
+  background: #ffffff;
+  color: #34405f;
+  cursor: pointer;
+  font-size: 1.08rem;
+  line-height: 1;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #f0f4ff;
+  border-color: rgba(95, 113, 164, 0.58);
+  color: #1f2b4d;
+}
+
+.navButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.navButton:focus-visible {
+  outline: 2px solid rgba(93, 73, 172, 0.34);
+  outline-offset: 2px;
+}
+
+.track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 242px);
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 0 8px;
+  scrollbar-width: thin;
+}
+
+.track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.track::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(111, 124, 163, 0.36);
+}
+
+.item {
+  scroll-snap-align: start;
+}
+
+.empty {
+  border-radius: 16px;
+  border: 1px dashed rgba(178, 188, 210, 0.72);
+  background: #f9fbff;
+  color: #67728f;
+  padding: 18px;
+}
+
+@media (max-width: 640px) {
+  .track {
+    grid-auto-columns: minmax(176px, 194px);
+    gap: 12px;
+  }
+
+  .navButton {
+    width: 30px;
+    height: 30px;
+  }
+}

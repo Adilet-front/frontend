@@ -1,0 +1,121 @@
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(640px, 100%);
+  padding: 6px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.search:focus-within {
+  border-color: var(--primary-hover);
+  box-shadow: 0 0 0 2px rgba(159, 122, 234, 0.2);
+}
+
+.search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 12px;
+  color: var(--purple-900);
+}
+
+.search button[type="submit"] {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.search button[type="submit"]:hover {
+  background: var(--primary-hover);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  z-index: 4;
+}
+
+.status {
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  color: #7b6b8d;
+}
+
+.item {
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  padding: 8px 10px;
+  display: grid;
+  gap: 4px;
+}
+
+.item:hover,
+.item[data-active="true"] {
+  background: var(--surface-soft);
+}
+
+.itemMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.itemPrimary {
+  font-weight: 600;
+  color: var(--purple-900);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemSecondary {
+  font-size: 0.8rem;
+  color: #7b6b8d;
+  min-height: 1em;
+}
+
+.itemType {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  border: 1px solid rgba(107, 70, 193, 0.22);
+  background: rgba(159, 122, 234, 0.1);
+  color: var(--primary);
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .search {
+    width: 100%;
+  }
+
+  .search button[type="submit"] {
+    padding: 9px 13px;
+    font-size: 0.85rem;
+  }
+}

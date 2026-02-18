@@ -1,0 +1,138 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+.header {
+  display: grid;
+  gap: 6px;
+}
+
+.header p {
+  color: #6b5b7d;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+.card h3 {
+  margin: 0 0 4px;
+}
+
+.card p {
+  margin: 0;
+  color: #6b5b7d;
+}
+
+.actionButton {
+  border-radius: 999px;
+  padding: 8px 16px;
+  border: none;
+  background: var(--purple-700);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.actionButtonGhost {
+  border-radius: 999px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: #5a4a6c;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notificationFilters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.notificationMeta {
+  display: grid;
+  gap: 6px;
+}
+
+.notificationDate {
+  font-size: 0.82rem;
+  color: #8a7b98;
+}
+
+.cardUnread {
+  border-color: rgba(107, 70, 193, 0.35);
+  background: rgba(237, 233, 254, 0.35);
+}
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 26px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle span {
+  position: absolute;
+  inset: 0;
+  background: #d9d1e6;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.toggle span::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.toggle input:checked + span {
+  background: var(--purple-600);
+}
+
+.toggle input:checked + span::after {
+  transform: translateX(18px);
+}
+
+@media (max-width: 640px) {
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    gap: 12px;
+  }
+
+  .card {
+    padding: 12px 14px;
+  }
+
+  .actionButton,
+  .actionButtonGhost {
+    width: 100%;
+    justify-content: center;
+  }
+}
