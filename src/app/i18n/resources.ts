@@ -45,6 +45,12 @@ export const resources = {
         toggleMenu: "Открыть меню",
         profileFallback: "Профиль",
         notifications: "Уведомления",
+        language: "Язык интерфейса",
+        languages: {
+          ru: "Русский",
+          en: "Английский",
+          kg: "Кыргызский",
+        },
         signOutConfirm: "Вы уверены, что хотите выйти из аккаунта?",
       },
       hero: {
@@ -154,6 +160,7 @@ export const resources = {
         errors: {
           emailRequired: "Введите почту.",
           emailInvalid: "Введите корректный адрес почты.",
+          emailDomainDotMissing: "В домене почты должна быть точка, например: name@gmail.com.",
           firstNameRequired: "Введите имя.",
           lastNameRequired: "Введите фамилию.",
           nameRequired: "Введите имя и фамилию.",
@@ -265,7 +272,8 @@ export const resources = {
         owned: "Мои книги",
         subscription: "По подписке",
         searchPlaceholder: "Поиск по моим книгам",
-        empty: "Нет бронирований.",
+        empty: "Книг пока нет.",
+        emptyTaken: "Нет на руках.",
         reservedAt: "Бронь",
         status: {
           all: "Все",
@@ -324,6 +332,8 @@ export const resources = {
           load: "Не удалось загрузить профиль. Проверьте авторизацию.",
           nameUpdate: "Не удалось обновить имя и фамилию.",
           emailRequest: "Не удалось отправить запрос на смену почты.",
+          emailInvalid: "Введите корректный адрес почты.",
+          emailDomainDotMissing: "В домене почты должна быть точка, например: name@gmail.com.",
           avatarUpload: "Не удалось загрузить аватар.",
           avatarType: "Выберите файл изображения.",
           avatarSize: "Размер файла должен быть меньше 5 МБ.",
@@ -684,6 +694,12 @@ export const resources = {
         toggleMenu: "Toggle menu",
         profileFallback: "Profile",
         notifications: "Notifications",
+        language: "Interface language",
+        languages: {
+          ru: "Russian",
+          en: "English",
+          kg: "Kyrgyz",
+        },
         signOutConfirm: "Are you sure you want to sign out?",
       },
       hero: {
@@ -791,6 +807,7 @@ export const resources = {
         errors: {
           emailRequired: "Enter email.",
           emailInvalid: "Enter a valid email, e.g. name@company.com.",
+          emailDomainDotMissing: "The email domain must contain a dot, for example: name@gmail.com.",
           firstNameRequired: "Enter your first name.",
           lastNameRequired: "Enter your last name.",
           nameRequired: "Enter your first and last name.",
@@ -902,7 +919,8 @@ export const resources = {
         owned: "My books",
         subscription: "Subscription",
         searchPlaceholder: "Search in my books",
-        empty: "No reservations found.",
+        empty: "No books yet.",
+        emptyTaken: "No books on hand.",
         reservedAt: "Reserved",
         status: {
           all: "All",
@@ -961,6 +979,8 @@ export const resources = {
           load: "Could not load profile. Check your authorization.",
           nameUpdate: "Could not update first and last name.",
           emailRequest: "Could not send email change request.",
+          emailInvalid: "Enter a valid email, e.g. name@company.com.",
+          emailDomainDotMissing: "The email domain must contain a dot, for example: name@gmail.com.",
           avatarUpload: "Could not upload avatar.",
           avatarType: "Please select an image file.",
           avatarSize: "File size must be less than 5 MB.",
@@ -1319,6 +1339,12 @@ export const resources = {
         toggleMenu: "Менюну ачуу",
         profileFallback: "Профиль",
         notifications: "Билдирмелер",
+        language: "Интерфейс тили",
+        languages: {
+          ru: "Орусча",
+          en: "Англисче",
+          kg: "Кыргызча",
+        },
         signOutConfirm: "Аккаунттан чыгууну чын эле каалайсызбы?",
       },
       hero: {
@@ -1427,6 +1453,7 @@ export const resources = {
         errors: {
           emailRequired: "Почтаны жазыңыз.",
           emailInvalid: "Туура почта жазыңыз, мисалы name@company.com.",
+          emailDomainDotMissing: "Почтанын доменинде чекит болушу керек, мисалы: name@gmail.com.",
           firstNameRequired: "Атыңызды жазыңыз.",
           lastNameRequired: "Фамилияңызды жазыңыз.",
           nameRequired: "Атыңызды жана фамилияңызды жазыңыз.",
@@ -1538,7 +1565,8 @@ export const resources = {
         owned: "Менин китептерим",
         subscription: "Жазылуу",
         searchPlaceholder: "Менин китептеримден издөө",
-        empty: "Брондоолор жок.",
+        empty: "Азырынча китеп жок.",
+        emptyTaken: "Колуңузда китеп жок.",
         reservedAt: "Бронь",
         status: {
           all: "Баары",
@@ -1597,6 +1625,8 @@ export const resources = {
           load: "Профилди жүктөө мүмкүн болгон жок. Авторизацияны текшериңиз.",
           nameUpdate: "Атын жана фамилиясын жаңыртуу мүмкүн болгон жок.",
           emailRequest: "Email өзгөртүү сурамын жөнөтүү мүмкүн болгон жок.",
+          emailInvalid: "Туура почта жазыңыз, мисалы name@company.com.",
+          emailDomainDotMissing: "Почтанын доменинде чекит болушу керек, мисалы: name@gmail.com.",
           avatarUpload: "Аватар жүктөө мүмкүн болгон жок.",
           avatarType: "Сураныч, сүрөт файлын тандаңыз.",
           avatarSize: "Файл өлчөмү 5 MB дан кичине болушу керек.",

@@ -201,6 +201,9 @@ export const MyBooksPage = () => {
     return t(`my.status.${value.toLocaleLowerCase()}`);
   };
 
+  const emptyStateMessage =
+    status === "TAKEN" ? t("my.emptyTaken") : t("my.empty");
+
   const formatReservationDate = (value?: string) => {
     if (!value) {
       return "";
@@ -300,7 +303,7 @@ export const MyBooksPage = () => {
             </div>
           ))
         ) : (
-          <div>{t("my.empty")}</div>
+          <div>{emptyStateMessage}</div>
         )}
       </div>
 

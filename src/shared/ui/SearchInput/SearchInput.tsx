@@ -144,15 +144,11 @@ export const SearchInput = ({ value, isAuthed, onSearch }: SearchInputProps) => 
                 <span className={styles.itemMain}>
                   <span className={styles.itemPrimary}>{suggestion.primary}</span>
                   <span className={styles.itemType}>
-                    {suggestion.kind === "author"
-                      ? t("search.suggestionTypeAuthor")
-                      : t("search.suggestionTypeBook")}
+                    {t("search.suggestionTypeBook")}
                   </span>
                 </span>
                 <span className={styles.itemSecondary}>
-                  {suggestion.kind === "author"
-                    ? t("search.suggestionAuthorHint")
-                    : suggestion.secondary}
+                  {suggestion.secondary}
                 </span>
               </button>
             ))

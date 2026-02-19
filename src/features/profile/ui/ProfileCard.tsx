@@ -9,6 +9,7 @@ import {
   uploadAvatar,
 } from "../../../entities/user/api/userApi";
 import { resolveAvatarUrl } from "../../../shared/lib/media/avatar";
+import { getEmailValidationError } from "../../../shared/lib/auth/emailValidation";
 
 export const ProfileCard = () => {
   const { t } = useTranslation();
@@ -152,6 +153,17 @@ export const ProfileCard = () => {
     const normalizedEmail = newEmail.trim();
     if (!normalizedEmail) {
       setEmailError(t("profile.errors.emailRequired"));
+      setEmailMessage(null);
+      return;
+    }
+
+    const emailValidationError = getEmailValidationError(normalizedEmail);
+    if (emailValidationError) {
+      setEmailError(
+        emailValidationError === "missingDomainDot"
+          ? t("profile.errors.emailDomainDotMissing")
+          : t("profile.errors.emailInvalid"),
+      );
       setEmailMessage(null);
       return;
     }

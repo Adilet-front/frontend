@@ -5,7 +5,7 @@
 
 .inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 16px;
   padding: 20px clamp(16px, 4vw, 56px) 28px;
@@ -27,46 +27,9 @@
   font-size: 0.85rem;
 }
 
-.lang {
-  display: grid;
-  gap: 8px;
-  justify-items: end;
-}
-
-.langLabel {
-  font-size: 0.85rem;
-  color: #6b5b7d;
-}
-
-.langButtons {
-  display: inline-flex;
-  gap: 8px;
-}
-
-.langButton,
-.langButtonActive {
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 6px 12px;
-  background: var(--surface);
-  color: #5a4a6c;
-  cursor: pointer;
-}
-
-.langButtonActive {
-  background: var(--purple-100);
-  color: var(--purple-700);
-}
-
 @media (max-width: 720px) {
   .inner {
-    flex-direction: column;
-    align-items: flex-start;
     padding: 18px 20px 24px;
-  }
-
-  .lang {
-    justify-items: start;
   }
 }
 
@@ -82,16 +45,5 @@
 
   .meta {
     font-size: 0.8rem;
-  }
-
-  .langButtons {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .langButton,
-  .langButtonActive {
-    padding: 6px 10px;
-    font-size: 0.85rem;
   }
 }

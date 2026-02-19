@@ -5,6 +5,7 @@ import {
   getProfile,
   requestEmailUpdate,
 } from "../../entities/user/api/userApi";
+import { getEmailValidationError } from "../../shared/lib/auth/emailValidation";
 import styles from "./ProfileSettingsPage.module.scss";
 
 export const ProfileCredentialsPage = () => {
@@ -65,6 +66,18 @@ export const ProfileCredentialsPage = () => {
             setResultMessage(null);
             return;
           }
+
+          const emailValidationError = getEmailValidationError(normalized);
+          if (emailValidationError) {
+            setResultError(
+              emailValidationError === "missingDomainDot"
+                ? t("profile.errors.emailDomainDotMissing")
+                : t("profile.errors.emailInvalid"),
+            );
+            setResultMessage(null);
+            return;
+          }
+
           requestEmailUpdateMutation.mutate(normalized);
         }}
       >

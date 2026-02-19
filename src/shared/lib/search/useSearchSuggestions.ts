@@ -7,7 +7,6 @@ import {
 
 export type SearchSuggestion = {
   id: string;
-  kind: "author" | "book";
   primary: string;
   secondary?: string;
   query: string;
@@ -25,40 +24,8 @@ type UseSearchSuggestionsResult = {
   isError: boolean;
 };
 
-const AUTHORS_LIMIT = 4;
-const BOOKS_LIMIT = 6;
+const BOOKS_LIMIT = 8;
 const TOTAL_LIMIT = 8;
-
-const mapAuthorSuggestions = (items: CatalogBook[]): SearchSuggestion[] => {
-  const authorSuggestions: SearchSuggestion[] = [];
-  const seen = new Set<string>();
-
-  for (const item of items) {
-    const author = item.author?.trim() ?? "";
-    if (!author) {
-      continue;
-    }
-
-    const normalizedAuthor = author.toLocaleLowerCase();
-    if (seen.has(normalizedAuthor)) {
-      continue;
-    }
-
-    seen.add(normalizedAuthor);
-    authorSuggestions.push({
-      id: `author:${normalizedAuthor}`,
-      kind: "author",
-      primary: author,
-      query: author,
-    });
-
-    if (authorSuggestions.length >= AUTHORS_LIMIT) {
-      break;
-    }
-  }
-
-  return authorSuggestions;
-};
 
 const mapBookSuggestions = (items: CatalogBook[]): SearchSuggestion[] => {
   const bookSuggestions: SearchSuggestion[] = [];
@@ -71,7 +38,6 @@ const mapBookSuggestions = (items: CatalogBook[]): SearchSuggestion[] => {
 
     bookSuggestions.push({
       id: `book:${item.id}`,
-      kind: "book",
       primary: title,
       secondary: item.author?.trim() || undefined,
       query: title,
@@ -86,9 +52,8 @@ const mapBookSuggestions = (items: CatalogBook[]): SearchSuggestion[] => {
 };
 
 const mapSuggestions = (items: CatalogBook[]): SearchSuggestion[] => {
-  const authors = mapAuthorSuggestions(items);
   const books = mapBookSuggestions(items);
-  return [...authors, ...books].slice(0, TOTAL_LIMIT);
+  return books.slice(0, TOTAL_LIMIT);
 };
 
 export const useSearchSuggestions = ({
