@@ -6,15 +6,31 @@ import { useTranslation } from "react-i18next";
 import { getUserActiveReservations } from "../../entities/booking/api/bookingApi";
 import { getUnreadNotificationsCount } from "../../entities/notification/api/notificationApi";
 import { useAuth } from "../../features/auth/model/useAuth";
+import type { AppLanguage } from "../../app/i18n/resources";
 import { resolveAvatarUrl } from "../../shared/lib/media/avatar";
 import { useSearchSuggestions } from "../../shared/lib/search/useSearchSuggestions";
 import styles from "./Header.module.scss";
 
 type HeaderDropdown = "my-books" | "profile";
 const DROPDOWN_CLOSE_DELAY = 650;
+const LANGUAGE_CLOSE_DELAY = 320;
+const LANGUAGE_OPTIONS: AppLanguage[] = ["ru", "en", "kg"];
+
+const resolveLanguageCode = (value?: string): AppLanguage => {
+  if (value === "ru" || value === "en" || value === "kg") {
+    return value;
+  }
+
+  const normalized = value?.split("-")[0];
+  if (normalized === "ru" || normalized === "en" || normalized === "kg") {
+    return normalized;
+  }
+
+  return "ru";
+};
 
 export const Header = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isAuthenticated, signOut, user } = useAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,12 +41,15 @@ export const Header = () => {
   const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [avatarLoadFailed, setAvatarLoadFailed] = useState(false);
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const searchTimerRef = useRef<number | null>(null);
   const dropdownCloseTimerRef = useRef<number | null>(null);
+  const languageCloseTimerRef = useRef<number | null>(null);
   const actionsRef = useRef<HTMLDivElement | null>(null);
   const canUseDom = typeof document !== "undefined";
   const resolvedAvatarUrl = resolveAvatarUrl(user?.avatarUrl);
   const avatarSrc = avatarLoadFailed ? null : resolvedAvatarUrl;
+  const currentLanguage = resolveLanguageCode(i18n.resolvedLanguage ?? i18n.language);
 
   const { data: activeReservations = [] } = useQuery({
     queryKey: ["reservations", "active"],
@@ -76,20 +95,31 @@ export const Header = () => {
     }
   }, []);
 
+  const clearLanguageCloseTimer = useCallback(() => {
+    if (languageCloseTimerRef.current) {
+      window.clearTimeout(languageCloseTimerRef.current);
+      languageCloseTimerRef.current = null;
+    }
+  }, []);
+
   const openDropdown = useCallback(
     (dropdown: HeaderDropdown) => {
       clearDropdownCloseTimer();
+      clearLanguageCloseTimer();
+      setIsLanguageMenuOpen(false);
       setActiveDropdown(dropdown);
     },
-    [clearDropdownCloseTimer],
+    [clearDropdownCloseTimer, clearLanguageCloseTimer],
   );
 
   const toggleDropdown = useCallback(
     (dropdown: HeaderDropdown) => {
       clearDropdownCloseTimer();
+      clearLanguageCloseTimer();
+      setIsLanguageMenuOpen(false);
       setActiveDropdown((current) => (current === dropdown ? null : dropdown));
     },
-    [clearDropdownCloseTimer],
+    [clearDropdownCloseTimer, clearLanguageCloseTimer],
   );
 
   const scheduleDropdownClose = useCallback(
@@ -103,10 +133,34 @@ export const Header = () => {
     [clearDropdownCloseTimer],
   );
 
-  const closeDropdowns = useCallback(() => {
+  const openLanguageMenu = useCallback(() => {
+    clearLanguageCloseTimer();
     clearDropdownCloseTimer();
     setActiveDropdown(null);
-  }, [clearDropdownCloseTimer]);
+    setIsLanguageMenuOpen(true);
+  }, [clearDropdownCloseTimer, clearLanguageCloseTimer]);
+
+  const toggleLanguageMenu = useCallback(() => {
+    clearLanguageCloseTimer();
+    clearDropdownCloseTimer();
+    setActiveDropdown(null);
+    setIsLanguageMenuOpen((current) => !current);
+  }, [clearDropdownCloseTimer, clearLanguageCloseTimer]);
+
+  const scheduleLanguageMenuClose = useCallback(() => {
+    clearLanguageCloseTimer();
+    languageCloseTimerRef.current = window.setTimeout(() => {
+      setIsLanguageMenuOpen(false);
+      languageCloseTimerRef.current = null;
+    }, LANGUAGE_CLOSE_DELAY);
+  }, [clearLanguageCloseTimer]);
+
+  const closeMenus = useCallback(() => {
+    clearDropdownCloseTimer();
+    clearLanguageCloseTimer();
+    setActiveDropdown(null);
+    setIsLanguageMenuOpen(false);
+  }, [clearDropdownCloseTimer, clearLanguageCloseTimer]);
 
   useEffect(() => {
     return () => {
@@ -116,11 +170,14 @@ export const Header = () => {
       if (dropdownCloseTimerRef.current) {
         window.clearTimeout(dropdownCloseTimerRef.current);
       }
+      if (languageCloseTimerRef.current) {
+        window.clearTimeout(languageCloseTimerRef.current);
+      }
     };
   }, []);
 
   useEffect(() => {
-    if (!canUseDom || !activeDropdown) {
+    if (!canUseDom || (!activeDropdown && !isLanguageMenuOpen)) {
       return;
     }
     const handlePointerDown = (event: PointerEvent) => {
@@ -128,13 +185,13 @@ export const Header = () => {
       if (target && actionsRef.current?.contains(target)) {
         return;
       }
-      closeDropdowns();
+      closeMenus();
     };
     document.addEventListener("pointerdown", handlePointerDown);
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
     };
-  }, [activeDropdown, canUseDom, closeDropdowns]);
+  }, [activeDropdown, canUseDom, closeMenus, isLanguageMenuOpen]);
 
   useEffect(() => {
     setAvatarLoadFailed(false);
@@ -191,7 +248,7 @@ export const Header = () => {
                 setIsMenuOpen((prev) => {
                   const next = !prev;
                   if (next) {
-                    closeDropdowns();
+                    closeMenus();
                   }
                   return next;
                 })
@@ -221,7 +278,7 @@ export const Header = () => {
             }}
             onFocusCapture={() => {
               if (isAuthenticated) {
-                closeDropdowns();
+                closeMenus();
                 setIsSearchOpen(true);
               }
             }}
@@ -279,15 +336,11 @@ export const Header = () => {
                           {suggestion.primary}
                         </span>
                         <span className={styles.searchItemType}>
-                          {suggestion.kind === "author"
-                            ? t("search.suggestionTypeAuthor")
-                            : t("search.suggestionTypeBook")}
+                          {t("search.suggestionTypeBook")}
                         </span>
                       </span>
                       <span className={styles.searchItemSecondary}>
-                        {suggestion.kind === "author"
-                          ? t("search.suggestionAuthorHint")
-                          : suggestion.secondary}
+                        {suggestion.secondary}
                       </span>
                     </button>
                   ))
@@ -334,10 +387,10 @@ export const Header = () => {
                   effectiveDropdown === "my-books" ? "false" : "true"
                 }
               >
-                <NavLink to="/my" onClick={closeDropdowns}>
+                <NavLink to="/my" onClick={closeMenus}>
                   {t("nav.myBooks")}
                 </NavLink>
-                <NavLink to="/wishlist" onClick={closeDropdowns}>
+                <NavLink to="/wishlist" onClick={closeMenus}>
                   {t("nav.wishlist")}
                 </NavLink>
               </div>
@@ -387,14 +440,14 @@ export const Header = () => {
                 <div
                   className={styles.profileDropdown}
                   data-open={effectiveDropdown === "profile" ? "true" : "false"}
-                  aria-hidden={
-                    effectiveDropdown === "profile" ? "false" : "true"
-                  }
-                >
-                  <NavLink to="/profile" onClick={closeDropdowns}>
+                aria-hidden={
+                  effectiveDropdown === "profile" ? "false" : "true"
+                }
+              >
+                  <NavLink to="/profile" onClick={closeMenus}>
                     {t("nav.profile")}
                   </NavLink>
-                  <NavLink to="/profile/notifications" onClick={closeDropdowns}>
+                  <NavLink to="/profile/notifications" onClick={closeMenus}>
                     {t("header.notifications")}
                     {hasUnreadNotifications ? (
                       <span className={styles.inlineCounter}>
@@ -406,7 +459,7 @@ export const Header = () => {
                     type="button"
                     className={styles.profileLogout}
                     onClick={() => {
-                      closeDropdowns();
+                      closeMenus();
                       handleSignOut();
                     }}
                   >
@@ -415,6 +468,70 @@ export const Header = () => {
                 </div>
               </div>
             )}
+
+            <div
+              className={styles.languageMenu}
+              onMouseEnter={openLanguageMenu}
+              onMouseLeave={scheduleLanguageMenuClose}
+              onFocusCapture={openLanguageMenu}
+              onBlurCapture={(event) => {
+                const nextTarget = event.relatedTarget as Node | null;
+                if (!event.currentTarget.contains(nextTarget)) {
+                  scheduleLanguageMenuClose();
+                }
+              }}
+            >
+              <button
+                type="button"
+                className={styles.languageSummary}
+                data-open={isLanguageMenuOpen ? "true" : "false"}
+                aria-expanded={isLanguageMenuOpen}
+                aria-label={t("header.language")}
+                onClick={toggleLanguageMenu}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm7 9h-3a15 15 0 0 0-1.05-5 7.03 7.03 0 0 1 4.05 5ZM12 5c.9 1.2 1.7 3.08 1.95 5h-3.9c.25-1.92 1.05-3.8 1.95-5ZM9.05 7A15 15 0 0 0 8 12H5a7.03 7.03 0 0 1 4.05-5ZM5 13h3c.13 1.84.5 3.54 1.05 5A7.03 7.03 0 0 1 5 13Zm7 6c-.9-1.2-1.7-3.08-1.95-5h3.9c-.25 1.92-1.05 3.8-1.95 5Zm2.95-1a15 15 0 0 0 1.05-5h3a7.03 7.03 0 0 1-4.05 5Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+
+              <div
+                className={styles.languageDropdown}
+                data-open={isLanguageMenuOpen ? "true" : "false"}
+                aria-hidden={isLanguageMenuOpen ? "false" : "true"}
+              >
+                {LANGUAGE_OPTIONS.map((languageCode) => (
+                  <button
+                    key={languageCode}
+                    type="button"
+                    className={
+                      languageCode === currentLanguage
+                        ? styles.languageOptionActive
+                        : styles.languageOption
+                    }
+                    onClick={() => {
+                      i18n.changeLanguage(languageCode);
+                      closeMenus();
+                    }}
+                  >
+                    <span>{t(`header.languages.${languageCode}`)}</span>
+                    {languageCode === currentLanguage ? (
+                      <span className={styles.languageCheck} aria-hidden="true">
+                        ✓
+                      </span>
+                    ) : null}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -486,6 +603,27 @@ export const Header = () => {
                 </button>
               </>
             )}
+            <div className={styles.mobileLanguage}>
+              <span className={styles.mobileLanguageLabel}>
+                {t("header.language")}
+              </span>
+              <div className={styles.mobileLanguageButtons}>
+                {LANGUAGE_OPTIONS.map((languageCode) => (
+                  <button
+                    key={languageCode}
+                    type="button"
+                    className={
+                      languageCode === currentLanguage
+                        ? styles.mobileLanguageButtonActive
+                        : styles.mobileLanguageButton
+                    }
+                    onClick={() => i18n.changeLanguage(languageCode)}
+                  >
+                    {t(`header.languages.${languageCode}`)}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </header>

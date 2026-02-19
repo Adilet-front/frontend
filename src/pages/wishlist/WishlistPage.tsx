@@ -186,8 +186,6 @@ export const WishlistPage = () => {
         />
       </div>
 
-      <div className={styles.meta}>{t("catalog.count", { count: filteredBooks.length })}</div>
-
       <div className={styles.grid}>
         {pagedBooks.length ? (
           pagedBooks.map((book) => (

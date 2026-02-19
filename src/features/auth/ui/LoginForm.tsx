@@ -14,6 +14,7 @@ import {
   getForgotPasswordCooldownMs,
   setForgotPasswordCooldown,
 } from "../../../shared/lib/auth/forgotPasswordCooldown";
+import { getEmailValidationError } from "../../../shared/lib/auth/emailValidation";
 
 type Step =
   | "email"
@@ -168,6 +169,19 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
     return t("auth.errors.registerFailed");
   };
 
+  const getEmailErrorMessage = (emailValue: string) => {
+    const validationError = getEmailValidationError(emailValue);
+    if (!validationError) {
+      return null;
+    }
+
+    if (validationError === "missingDomainDot") {
+      return t("auth.errors.emailDomainDotMissing");
+    }
+
+    return t("auth.errors.emailInvalid");
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const email = values.email.trim();
@@ -178,13 +192,16 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
       if (!email) {
         setFormError(t("auth.errors.emailRequired"));
         shouldShake = true;
-      } else if (!email.includes("@")) {
-        setFormError(t("auth.errors.emailInvalid"));
-        shouldShake = true;
       } else {
-        setFormError(null);
-        setStep(mode === "register" ? "register-form" : "password");
-        return;
+        const emailError = getEmailErrorMessage(email);
+        if (emailError) {
+          setFormError(emailError);
+          shouldShake = true;
+        } else {
+          setFormError(null);
+          setStep(mode === "register" ? "register-form" : "password");
+          return;
+        }
       }
     } else if (step === "password") {
       if (!password) {
@@ -225,10 +242,14 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
       if (!resetEmail) {
         setFormError(t("auth.errors.emailRequired"));
         shouldShake = true;
-      } else if (!resetEmail.includes("@")) {
-        setFormError(t("auth.errors.emailInvalid"));
-        shouldShake = true;
       } else {
+        const emailError = getEmailErrorMessage(resetEmail);
+        if (emailError) {
+          setFormError(emailError);
+          shouldShake = true;
+          return;
+        }
+
         const remainingCooldownMs = getForgotPasswordCooldownMs(resetEmail);
         if (remainingCooldownMs > 0) {
           const remainingMinutes = Math.ceil(remainingCooldownMs / (60 * 1000));
@@ -275,9 +296,12 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
         if (!email) {
           setFormError(t("auth.errors.emailRequired"));
           shouldShake = true;
-        } else if (!email.includes("@")) {
-          setFormError(t("auth.errors.emailInvalid"));
-          shouldShake = true;
+        } else {
+          const emailError = getEmailErrorMessage(email);
+          if (emailError) {
+            setFormError(emailError);
+            shouldShake = true;
+          }
         }
       }
       const { password: regPass, confirm } = registerPasswords;
@@ -385,7 +409,13 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
         <button 
           className="button primary" 
           type="button"
-          onClick={() => navigate("/auth/login")}
+          onClick={() => {
+            setRegistrationSuccess(false);
+            setFormError(null);
+            setStep("email");
+            setValues((prev) => ({ ...prev, password: "" }));
+            navigate("/auth/login", { replace: true });
+          }}
         >
           {t("auth.backToLogin")}
         </button>
@@ -413,6 +443,7 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
             setForgotPasswordSuccess(false);
             setStep("email");
             setFormError(null);
+            navigate("/auth/login", { replace: true });
           }}
         >
           {t("auth.backToLogin")}

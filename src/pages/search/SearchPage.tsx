@@ -160,18 +160,6 @@ export const SearchPage = () => {
         <div className={styles.empty}>{t("errors.booksLoad")}</div>
       ) : (
         <>
-          <div className={styles.tabs} role="tablist" aria-label={t("pages.searchTitle")}>
-            <button type="button" className={`${styles.tab} ${styles.tabActive}`} role="tab">
-              {t("search.tabs.books", { count: total })}
-            </button>
-            <span className={styles.tab} role="tab" aria-disabled="true">
-              {t("search.tabs.authors", { count: 0 })}
-            </span>
-            <span className={styles.tab} role="tab" aria-disabled="true">
-              {t("search.tabs.series", { count: 0 })}
-            </span>
-          </div>
-
           <div className={styles.layout}>
             <aside className={styles.sidebar} data-open={isFiltersOpen ? "true" : "false"}>
               <div className={styles.sidebarHead}>
