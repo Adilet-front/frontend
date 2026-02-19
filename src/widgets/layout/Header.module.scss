@@ -535,6 +535,103 @@
   background: rgba(245, 101, 101, 0.08) !important;
 }
 
+.languageMenu {
+  position: relative;
+}
+
+.languageSummary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: #5a4a6c;
+  cursor: pointer;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease,
+    color 0.22s ease;
+}
+
+.languageSummary:hover,
+.languageSummary[data-open="true"] {
+  color: var(--primary);
+  border-color: rgba(107, 70, 193, 0.42);
+  box-shadow: 0 0 0 1px rgba(107, 70, 193, 0.15);
+  transform: translateY(-1px);
+}
+
+.languageDropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 176px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 8px;
+  display: grid;
+  gap: 4px;
+  transform-origin: top right;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.96);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+  z-index: 7;
+}
+
+.languageDropdown[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.languageOption,
+.languageOptionActive {
+  border: 1px solid transparent;
+  background: transparent;
+  color: #5a4a6c;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.languageOption:hover {
+  background: var(--surface-soft);
+}
+
+.languageOptionActive {
+  color: var(--primary);
+  background: rgba(107, 70, 193, 0.08);
+  border-color: rgba(107, 70, 193, 0.2);
+  font-weight: 600;
+}
+
+.languageCheck {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
 .counterBadge {
   display: inline-flex;
   align-items: center;
@@ -629,6 +726,56 @@
   background: var(--accent-red);
   color: white;
   transform: scale(1.02);
+}
+
+.mobileLanguage {
+  display: grid;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.mobileLanguageLabel {
+  color: #6b5b7d;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.mobileLanguageButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mobileLanguageButton,
+.mobileLanguageButtonActive {
+  border-radius: 999px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 0.85rem;
+  border: 1px solid rgba(178, 188, 210, 0.72);
+  background: var(--surface-soft);
+  color: #4f4160;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.mobileLanguageButton:hover {
+  transform: translateY(-1px);
+  border-color: rgba(107, 70, 193, 0.35);
+}
+
+.mobileLanguageButtonActive {
+  background: rgba(107, 70, 193, 0.12);
+  border-color: rgba(107, 70, 193, 0.45);
+  color: var(--primary);
+  font-weight: 600;
 }
 
 .burger {

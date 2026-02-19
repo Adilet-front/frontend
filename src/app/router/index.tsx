@@ -49,10 +49,13 @@ export const AppRouter = () => (
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/auth" element={<Navigate to="/auth/login" replace />} />
-          <Route path="/auth/login" element={<LoginPage mode="login" />} />
+          <Route
+            path="/auth/login"
+            element={<LoginPage key="auth-login" mode="login" />}
+          />
           <Route
             path="/auth/register"
-            element={<LoginPage mode="register" />}
+            element={<LoginPage key="auth-register" mode="register" />}
           />
           <Route
             path="/auth/reset-password"
