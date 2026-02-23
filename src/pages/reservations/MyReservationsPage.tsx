@@ -1,4 +1,4 @@
-/**
+  /**
  * Страница "Мои бронирования"
  */
 import { useState, useEffect, useCallback } from "react";

@@ -4,7 +4,11 @@ import { useTranslation } from "react-i18next";
 import { BookCard, type Book } from "../../entities/book/ui/BookCard";
 import { getBooks } from "../../entities/book/api/bookApi";
 import type { BookStatus } from "../../entities/book/model/types";
-import { getUserReservations } from "../../entities/booking/api/bookingApi";
+import {
+  getMyReadingHistory,
+  myActiveReservations,
+  myReservations,
+} from "../../entities/booking/api/bookingApi";
 import type { Reservation } from "../../entities/booking/model/types";
 import { Pagination } from "../../shared/ui/Pagination/Pagination";
 import styles from "./MyBooksPage.module.scss";
@@ -14,7 +18,7 @@ type MyBook = Omit<Book, "status"> & {
   status: "TAKEN" | "RESERVED" | "RETURNED" | "CANCELLED";
 };
 
-type MyBookFilter = "all" | "TAKEN" | "RESERVED" | "RETURNED" | "CANCELLED";
+type MyBooksTab = "all" | "active" | "history";
 
 const PAGE_SIZE = 8;
 
@@ -88,15 +92,25 @@ const pickMoreRelevantReservation = (
 
 export const MyBooksPage = () => {
   const { t, i18n } = useTranslation();
-  const [status, setStatus] = useState<MyBookFilter>("all");
+  const [tab, setTab] = useState<MyBooksTab>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isCompactPagination, setIsCompactPagination] = useState(false);
 
   const { data: rawReservations, isLoading } = useQuery({
-    queryKey: ["reservations", "my"],
+    queryKey: ["reservations", "my", tab],
     queryFn: async () => {
-      const { data } = await getUserReservations();
+      if (tab === "active") {
+        const { data } = await myActiveReservations();
+        return data;
+      }
+
+      if (tab === "history") {
+        const { data } = await getMyReadingHistory();
+        return data;
+      }
+
+      const { data } = await myReservations();
       return data;
     },
   });
@@ -123,7 +137,6 @@ export const MyBooksPage = () => {
 
     const bookMap = new Map(books.map((item) => [item.id, item]));
     const latestReservationByBook = new Map<number, Reservation>();
-
     for (const reservation of reservations) {
       const previous = latestReservationByBook.get(reservation.bookId);
       if (!previous) {
@@ -155,16 +168,11 @@ export const MyBooksPage = () => {
 
   const list = useMemo(() => {
     const normalizedSearchQuery = searchQuery.trim().toLocaleLowerCase();
-    const byStatus =
-      status === "all"
-        ? ownedBooks
-        : ownedBooks.filter((book) => book.status === status);
-
     if (!normalizedSearchQuery) {
-      return byStatus;
+      return ownedBooks;
     }
 
-    return byStatus.filter((book) => {
+    return ownedBooks.filter((book) => {
       const title = book.title.toLocaleLowerCase();
       const author = book.author.toLocaleLowerCase();
       return (
@@ -172,7 +180,7 @@ export const MyBooksPage = () => {
         author.includes(normalizedSearchQuery)
       );
     });
-  }, [ownedBooks, searchQuery, status]);
+  }, [ownedBooks, searchQuery]);
 
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -193,16 +201,11 @@ export const MyBooksPage = () => {
     return () => mediaQuery.removeEventListener("change", applyState);
   }, []);
 
-  const statusLabel = (value: MyBookFilter | MyBook["status"]) => {
-    if (value === "all") {
-      return t("my.status.all");
-    }
-
+  const statusLabel = (value: MyBook["status"]) => {
     return t(`my.status.${value.toLocaleLowerCase()}`);
   };
 
-  const emptyStateMessage =
-    status === "TAKEN" ? t("my.emptyTaken") : t("my.empty");
+  const emptyStateMessage = t("my.empty");
 
   const formatReservationDate = (value?: string) => {
     if (!value) {
@@ -215,7 +218,7 @@ export const MyBooksPage = () => {
   return (
     <section className={styles.page}>
       <div className={styles.header}>
-        <h1>{t("pages.myBooksTitle")}</h1>
+        <h1>{t("my.history")}</h1>
         <p>{t("my.subtitle")}</p>
         <input
           type="search"
@@ -232,56 +235,35 @@ export const MyBooksPage = () => {
       <div className={styles.statusTabs}>
         <button
           type="button"
-          className={status === "all" ? styles.tabActive : styles.tab}
+          className={tab === "all" ? styles.tabActive : styles.tab}
           onClick={() => {
-            setStatus("all");
+            setTab("all");
             setPage(1);
           }}
         >
-          {statusLabel("all")}
+          {t("my.tabs.all")}
         </button>
         <button
           type="button"
-          className={status === "TAKEN" ? styles.tabActive : styles.tab}
+          className={tab === "active" ? styles.tabActive : styles.tab}
           onClick={() => {
-            setStatus("TAKEN");
+            setTab("active");
             setPage(1);
           }}
         >
-          {statusLabel("TAKEN")}
+          {t("my.tabs.active")}
         </button>
         <button
           type="button"
-          className={status === "RESERVED" ? styles.tabActive : styles.tab}
+          className={tab === "history" ? styles.tabActive : styles.tab}
           onClick={() => {
-            setStatus("RESERVED");
+            setTab("history");
             setPage(1);
           }}
         >
-          {statusLabel("RESERVED")}
-        </button>
-        <button
-          type="button"
-          className={status === "RETURNED" ? styles.tabActive : styles.tab}
-          onClick={() => {
-            setStatus("RETURNED");
-            setPage(1);
-          }}
-        >
-          {statusLabel("RETURNED")}
-        </button>
-        <button
-          type="button"
-          className={status === "CANCELLED" ? styles.tabActive : styles.tab}
-          onClick={() => {
-            setStatus("CANCELLED");
-            setPage(1);
-          }}
-        >
-          {statusLabel("CANCELLED")}
+          {t("my.tabs.history")}
         </button>
       </div>
-
       <div className={styles.grid}>
         {isLoading ? (
           <div>{t("common.loading")}</div>

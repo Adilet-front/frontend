@@ -1,5 +1,5 @@
 /**
- * API бронирований: создать, взять, вернуть, отменить; список своих и активных.
+ * API бронирований: создать, взять, вернуть, отменить; список своих, активных и историю.
  */
 import { apiClient } from "../../../shared/api/apiClient";
 import type { Reservation } from "../model/types";
@@ -20,8 +20,15 @@ export const cancelReservation = (id: number) =>
 
 export type GetUserReservationsResponse = Reservation[];
 
-export const getUserReservations = () =>
+export const myReservations = () =>
   apiClient.get<GetUserReservationsResponse>("/reservations/my");
 
-export const getUserActiveReservations = () =>
+export const myActiveReservations = () =>
   apiClient.get<GetUserReservationsResponse>("/reservations/my/active");
+
+export const getMyReadingHistory = () =>
+  apiClient.get<GetUserReservationsResponse>("/reservations/my/history");
+
+// Backward-compatible aliases for existing imports.
+export const getUserReservations = myReservations;
+export const getUserActiveReservations = myActiveReservations;

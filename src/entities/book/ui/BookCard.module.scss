@@ -1,5 +1,6 @@
 .card {
   position: relative;
+  height: 100%;
   border-radius: 18px;
   border: 1px solid var(--border);
   background: linear-gradient(180deg, var(--surface) 0%, var(--surface-soft-2) 100%);
@@ -20,6 +21,7 @@
 .cardLink {
   display: grid;
   gap: 12px;
+  height: 100%;
   text-decoration: none;
   color: inherit;
 }
@@ -94,6 +96,8 @@
 .meta {
   display: grid;
   gap: 5px;
+  min-height: 74px;
+  align-content: start;
 }
 
 .title {
@@ -101,12 +105,19 @@
   font-size: 1.05rem;
   line-height: 1.25;
   color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .author {
   margin: 0;
   color: var(--text-secondary);
   font-size: 0.95rem;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ratingRow {
