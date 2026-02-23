@@ -152,7 +152,7 @@ export const HomePage = () => {
     <section className={styles.page}>
       <header className={styles.header}>
         <h1>{t("pages.homeTitle")}</h1>
-        <p>{t("home.subtitle")}</p>
+        <p>{t("pages.homeSubtitle")}</p>
       </header>
 
       {isLoading ? (

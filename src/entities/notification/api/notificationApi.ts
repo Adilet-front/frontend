@@ -1,5 +1,5 @@
 import { apiClient } from "../../../shared/api/apiClient";
-import type { Notification } from "../model/types";
+import type { MarkNotificationsReadPayload, Notification } from "../model/types";
 
 export const getMyNotifications = async (): Promise<Notification[]> => {
   const { data } = await apiClient.get<Notification[]>("/api/notifications");
@@ -11,6 +11,8 @@ export const getUnreadNotificationsCount = async (): Promise<number> => {
   return data;
 };
 
-export const markNotificationRead = async (id: number): Promise<void> => {
-  await apiClient.patch(`/api/notifications/${id}/read`);
+export const markNotificationsRead = async (
+  payload: MarkNotificationsReadPayload,
+): Promise<void> => {
+  await apiClient.patch("/api/notifications/read", payload);
 };

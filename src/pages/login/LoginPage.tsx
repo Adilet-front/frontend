@@ -4,7 +4,7 @@
 import { LoginWidget } from "../../widgets/auth/LoginWidget";
 
 type LoginPageProps = {
-  mode?: "login" | "register";
+  mode?: "login" | "register" | "forgot";
 };
 
 export const LoginPage = ({ mode }: LoginPageProps) => (

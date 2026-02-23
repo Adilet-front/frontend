@@ -5,11 +5,15 @@ export type NotificationType =
   | "RESERVATION_EXPIRED"
   | string;
 
-export type Notification = {
+export interface Notification {
   id: number;
   title: string;
   message: string;
   createdAt: string;
   isRead: boolean;
   type: NotificationType;
-};
+}
+
+export interface MarkNotificationsReadPayload {
+  ids: number[];
+}

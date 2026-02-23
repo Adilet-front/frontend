@@ -22,8 +22,10 @@ type Step =
   | "register-form"
   | "forgot-password";
 
+type LoginMode = "login" | "register" | "forgot";
+
 type LoginFormProps = {
-  mode?: "login" | "register";
+  mode?: LoginMode;
 };
 
 export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
@@ -34,7 +36,12 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
     | { prefillEmail?: string; from?: { pathname?: string } }
     | null;
   const prefillEmail = locationState?.prefillEmail ?? "";
-  const initialStep: Step = mode === "register" ? "register-form" : "email";
+  const initialStep: Step =
+    mode === "register"
+      ? "register-form"
+      : mode === "forgot"
+        ? "forgot-password"
+        : "email";
   const [isShaking, setIsShaking] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
@@ -53,7 +60,7 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
   });
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState(prefillEmail);
   const [forgotPasswordSuccess, setForgotPasswordSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
@@ -729,9 +736,9 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
           className="auth-link" 
           type="button"
           onClick={() => {
-            setStep("forgot-password");
-            setForgotPasswordEmail(values.email);
-            setFormError(null);
+            navigate("/auth/forgot-password", {
+              state: { prefillEmail: values.email.trim() },
+            });
           }}
         >
           {t("auth.forgot")}
@@ -753,8 +760,10 @@ export const LoginForm = ({ mode = "login" }: LoginFormProps) => {
           className="auth-link"
           type="button"
           onClick={() => {
-            setStep("password");
-            setFormError(null);
+            navigate("/auth/login", {
+              replace: mode === "forgot",
+              state: { prefillEmail: forgotPasswordEmail.trim() },
+            });
           }}
         >
           {t("auth.back")}

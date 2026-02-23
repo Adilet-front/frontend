@@ -58,6 +58,10 @@ export const AppRouter = () => (
             element={<LoginPage key="auth-register" mode="register" />}
           />
           <Route
+            path="/auth/forgot-password"
+            element={<LoginPage key="auth-forgot-password" mode="forgot" />}
+          />
+          <Route
             path="/auth/reset-password"
             element={<ResetPasswordPage />}
           />

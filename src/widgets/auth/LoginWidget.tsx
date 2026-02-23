@@ -4,7 +4,7 @@
 import { LoginForm } from "../../features/auth/ui/LoginForm";
 
 type LoginWidgetProps = {
-  mode?: "login" | "register";
+  mode?: "login" | "register" | "forgot";
 };
 
 export const LoginWidget = ({ mode }: LoginWidgetProps) => (
