@@ -46,6 +46,11 @@ export const resources = {
         profileFallback: "Профиль",
         notifications: "Уведомления",
         language: "Язык интерфейса",
+        theme: "Тема",
+        themeLight: "Светлая",
+        themeDark: "Тёмная",
+        themeToggleToDark: "Переключить на тёмную тему",
+        themeToggleToLight: "Переключить на светлую тему",
         languages: {
           ru: "Русский",
           en: "Английский",
@@ -56,8 +61,7 @@ export const resources = {
       hero: {
         badge: "Электронные + аудио",
         title: "Офисная библиотека",
-        subtitle:
-          "Книги для сотрудников, подборки и быстрый поиск по жанрам.",
+        subtitle: "Книги для сотрудников, подборки и быстрый поиск по жанрам.",
         cta: "Начать читать",
         titleAlt: "Подборки на любой вкус",
         subtitleAlt: "Хиты, новинки и эксклюзивные релизы в одном месте.",
@@ -93,13 +97,12 @@ export const resources = {
         signIn: "Войти",
       },
       home: {
-        subtitle:
-          "Только подборки и рекомендации: находите книги быстрее без лишних фильтров.",
+        subtitle: "Все книги библиотеки",
         empty: "Пока нет книг для отображения.",
       },
       catalog: {
         title: "Каталог",
-        subtitle: "Подберите книгу по жанру, формату и языку.",
+        subtitle: "Все книги библиотеки",
         filters: "Фильтры",
         reset: "Сбросить",
         all: "Все",
@@ -160,7 +163,8 @@ export const resources = {
         errors: {
           emailRequired: "Введите почту.",
           emailInvalid: "Введите корректный адрес почты.",
-          emailDomainDotMissing: "В домене почты должна быть точка, например: name@gmail.com.",
+          emailDomainDotMissing:
+            "В домене почты должна быть точка, например: name@gmail.com.",
           firstNameRequired: "Введите имя.",
           lastNameRequired: "Введите фамилию.",
           nameRequired: "Введите имя и фамилию.",
@@ -173,14 +177,21 @@ export const resources = {
           registerFailed: "Не удалось зарегистрироваться. Попробуйте позже.",
           fileTooLarge: "Размер файла не должен превышать 5 МБ",
           invalidFileType: "Пожалуйста, выберите файл изображения",
-          emailNotConfirmed: "Пожалуйста, подтвердите адрес вашей почты. Проверьте входящие письма для ссылки подтверждения.",
-          accountNotApproved: "Ваш аккаунт ожидает одобрения администратором. Пожалуйста, дождитесь одобрения вашей регистрации.",
-          accountDisabled: "Ваш аккаунт был отключен. Пожалуйста, свяжитесь с администратором.",
+          emailNotConfirmed:
+            "Пожалуйста, подтвердите адрес вашей почты. Проверьте входящие письма для ссылки подтверждения.",
+          accountNotApproved:
+            "Ваш аккаунт ожидает одобрения администратором. Пожалуйста, дождитесь одобрения вашей регистрации.",
+          accountDisabled:
+            "Ваш аккаунт был отключен. Пожалуйста, свяжитесь с администратором.",
           passwordTooShort: "Пароль должен содержать минимум 6 символов.",
-          passwordResetRequestFailed: "Не удалось отправить ссылку для сброса. Попробуйте позже.",
-          resetTokenRequired: "Токен сброса отсутствует. Откройте ссылку из письма.",
-          passwordResetFailed: "Не удалось обновить пароль. Запросите новую ссылку для сброса.",
-          passwordResetRateLimited: "Повторный запрос для этой почты возможен через {{minutes}} мин.",
+          passwordResetRequestFailed:
+            "Не удалось отправить ссылку для сброса. Попробуйте позже.",
+          resetTokenRequired:
+            "Токен сброса отсутствует. Откройте ссылку из письма.",
+          passwordResetFailed:
+            "Не удалось обновить пароль. Запросите новую ссылку для сброса.",
+          passwordResetRateLimited:
+            "Повторный запрос для этой почты возможен через {{minutes}} мин.",
         },
         registerTitle: "Создать профиль",
         emailFree: "Адрес свободен для регистрации",
@@ -204,23 +215,30 @@ export const resources = {
         showPassword: "Показать пароль",
         hidePassword: "Скрыть пароль",
         registrationSuccess: "Регистрация успешна!",
-        emailConfirmationSent: "Мы отправили письмо с подтверждением на ваш адрес. Пожалуйста, проверьте входящие письма и подтвердите почту в течение 15 минут.",
-        adminApprovalRequired: "После подтверждения почты ваш аккаунт будет ожидать одобрения администратором. Вы сможете войти после того, как администратор одобрит вашу регистрацию.",
-        registrationPending: "Ваш аккаунт создан и ожидает подтверждения администратором. Вы получите уведомление после одобрения.",
+        emailConfirmationSent:
+          "Мы отправили письмо с подтверждением на ваш адрес. Пожалуйста, проверьте входящие письма и подтвердите почту в течение 15 минут.",
+        adminApprovalRequired:
+          "После подтверждения почты ваш аккаунт будет ожидать одобрения администратором. Вы сможете войти после того, как администратор одобрит вашу регистрацию.",
+        registrationPending:
+          "Ваш аккаунт создан и ожидает подтверждения администратором. Вы получите уведомление после одобрения.",
         backToLogin: "Вернуться к входу",
         passwordResetTitle: "Восстановление пароля",
-        passwordResetHint: "Введите вашу почту, и мы отправим ссылку для сброса пароля.",
-        passwordResetSent: "Мы отправили ссылку для сброса пароля на вашу почту. Проверьте входящие письма.",
+        passwordResetHint:
+          "Введите вашу почту, и мы отправим ссылку для сброса пароля.",
+        passwordResetSent:
+          "Мы отправили ссылку для сброса пароля на вашу почту. Проверьте входящие письма.",
         sendResetLink: "Отправить ссылку",
         passwordResetSetTitle: "Установить новый пароль",
         passwordResetSetHint: "Создайте новый пароль для вашего аккаунта.",
-        passwordResetTokenMissing: "Токен сброса отсутствует. Откройте ссылку из письма.",
+        passwordResetTokenMissing:
+          "Токен сброса отсутствует. Откройте ссылку из письма.",
         resetToken: "Токен сброса",
         resetTokenPlaceholder: "Вставьте токен из письма",
         newPassword: "Новый пароль",
         newPasswordPlaceholder: "Введите новый пароль",
         passwordResetSuccessTitle: "Пароль обновлен",
-        passwordResetSuccess: "Пароль успешно обновлен. Теперь вы можете войти.",
+        passwordResetSuccess:
+          "Пароль успешно обновлен. Теперь вы можете войти.",
         resettingPassword: "Сохранение...",
         openResetForm: "Открыть форму сброса",
       },
@@ -268,9 +286,15 @@ export const resources = {
         empty: "Корзина пуста.",
       },
       my: {
+        history: "История",
         subtitle: "Книги, которые вы взяли или забронировали в библиотеке.",
         owned: "Мои книги",
         subscription: "По подписке",
+        tabs: {
+          all: "Все",
+          active: "Забронирована / На руках",
+          history: "Возвращена",
+        },
         searchPlaceholder: "Поиск по моим книгам",
         empty: "Книг пока нет.",
         emptyTaken: "Нет на руках.",
@@ -333,7 +357,8 @@ export const resources = {
           nameUpdate: "Не удалось обновить имя и фамилию.",
           emailRequest: "Не удалось отправить запрос на смену почты.",
           emailInvalid: "Введите корректный адрес почты.",
-          emailDomainDotMissing: "В домене почты должна быть точка, например: name@gmail.com.",
+          emailDomainDotMissing:
+            "В домене почты должна быть точка, например: name@gmail.com.",
           avatarUpload: "Не удалось загрузить аватар.",
           avatarType: "Выберите файл изображения.",
           avatarSize: "Размер файла должен быть меньше 5 МБ.",
@@ -394,7 +419,7 @@ export const resources = {
         rights: "Все права защищены",
       },
       pages: {
-        homeTitle: "Главная",
+        homeTitle: "Подборки и рекомендации для вас",
         homeSubtitle:
           "Собирайте библиотеку, следите за новинками и сохраняйте подборки.",
         catalogTitle: "Каталог",
@@ -418,7 +443,8 @@ export const resources = {
         notAvailable: "—",
       },
       errors: {
-        booksLoad: "Не удалось загрузить книги. Проверьте сервер и попробуйте снова.",
+        booksLoad:
+          "Не удалось загрузить книги. Проверьте сервер и попробуйте снова.",
         rootNotFound: "Корневой элемент приложения не найден.",
         fallbackTitle: "Что-то пошло не так",
         fallbackSubtitle:
@@ -641,14 +667,18 @@ export const resources = {
         },
       },
       bookingNotifications: {
-        reservePickup: "У вас 24 часа, чтобы забрать книгу \"{{title}}\" с полки {{location}}.",
-        takeSuccess: "Вы получили книгу \"{{title}}\". Ожидаемая дата возврата: {{date}}.",
-        returnSuccess: "Книга \"{{title}}\" возвращена. Дней на руках: {{days}}. Оставьте отзыв?",
-        reservationExpired: "Ваша бронь на книгу \"{{title}}\" отменена из-за истечения времени.",
+        reservePickup:
+          'У вас 24 часа, чтобы забрать книгу "{{title}}" с полки {{location}}.',
+        takeSuccess:
+          'Вы получили книгу "{{title}}". Ожидаемая дата возврата: {{date}}.',
+        returnSuccess:
+          'Книга "{{title}}" возвращена. Дней на руках: {{days}}. Оставьте отзыв?',
+        reservationExpired:
+          'Ваша бронь на книгу "{{title}}" отменена из-за истечения времени.',
         reminderTwoWeeks:
-          "Напоминаем, что книга \"{{title}}\" у вас уже 2 недели. Пожалуйста, верните её в течение 2 недель или свяжитесь с администратором для продления.",
+          'Напоминаем, что книга "{{title}}" у вас уже 2 недели. Пожалуйста, верните её в течение 2 недель или свяжитесь с администратором для продления.',
         reminderFourWeeks:
-          "Срок возврата книги \"{{title}}\" истёк. Пожалуйста, верните книгу в ближайшее время.",
+          'Срок возврата книги "{{title}}" истёк. Пожалуйста, верните книгу в ближайшее время.',
       },
     },
   },
@@ -679,7 +709,7 @@ export const resources = {
         suggestionTypeAuthor: "Author",
         suggestionTypeBook: "Book",
         suggestionAuthorHint: "Find books by this author",
-        resultsFor: "Search results for \"{{query}}\"",
+        resultsFor: 'Search results for "{{query}}"',
         tabs: {
           books: "Books {{count}}",
           authors: "Authors {{count}}",
@@ -695,6 +725,11 @@ export const resources = {
         profileFallback: "Profile",
         notifications: "Notifications",
         language: "Interface language",
+        theme: "Theme",
+        themeLight: "Light",
+        themeDark: "Dark",
+        themeToggleToDark: "Switch to dark theme",
+        themeToggleToLight: "Switch to light theme",
         languages: {
           ru: "Russian",
           en: "English",
@@ -741,12 +776,12 @@ export const resources = {
         signIn: "Sign in",
       },
       home: {
-        subtitle: "Clean curated rails only: discover books faster without extra controls.",
+        subtitle: "All books in the library",
         empty: "No books available yet.",
       },
       catalog: {
         title: "Catalog",
-        subtitle: "Pick a book by genre, format, and language.",
+        subtitle: "All books in the library",
         filters: "Filters",
         reset: "Reset",
         all: "All",
@@ -807,7 +842,8 @@ export const resources = {
         errors: {
           emailRequired: "Enter email.",
           emailInvalid: "Enter a valid email, e.g. name@company.com.",
-          emailDomainDotMissing: "The email domain must contain a dot, for example: name@gmail.com.",
+          emailDomainDotMissing:
+            "The email domain must contain a dot, for example: name@gmail.com.",
           firstNameRequired: "Enter your first name.",
           lastNameRequired: "Enter your last name.",
           nameRequired: "Enter your first and last name.",
@@ -820,14 +856,21 @@ export const resources = {
           registerFailed: "Registration failed. Try again later.",
           fileTooLarge: "File size must be less than 5MB",
           invalidFileType: "Please select an image file",
-          emailNotConfirmed: "Please confirm your email address. Check your inbox for the confirmation link.",
-          accountNotApproved: "Your account is pending admin approval. Please wait for an administrator to approve your registration.",
-          accountDisabled: "Your account has been disabled. Please contact the administrator.",
+          emailNotConfirmed:
+            "Please confirm your email address. Check your inbox for the confirmation link.",
+          accountNotApproved:
+            "Your account is pending admin approval. Please wait for an administrator to approve your registration.",
+          accountDisabled:
+            "Your account has been disabled. Please contact the administrator.",
           passwordTooShort: "Password must contain at least 6 characters.",
-          passwordResetRequestFailed: "Could not send reset link. Please try again later.",
-          resetTokenRequired: "Reset token is missing. Please use the link from your email.",
-          passwordResetFailed: "Could not reset password. Please request a new reset link.",
-          passwordResetRateLimited: "A reset link for this email can be requested again in {{minutes}} minutes.",
+          passwordResetRequestFailed:
+            "Could not send reset link. Please try again later.",
+          resetTokenRequired:
+            "Reset token is missing. Please use the link from your email.",
+          passwordResetFailed:
+            "Could not reset password. Please request a new reset link.",
+          passwordResetRateLimited:
+            "A reset link for this email can be requested again in {{minutes}} minutes.",
         },
         registerTitle: "Create profile",
         emailFree: "Email is available for registration",
@@ -851,23 +894,30 @@ export const resources = {
         showPassword: "Show password",
         hidePassword: "Hide password",
         registrationSuccess: "Registration Successful!",
-        emailConfirmationSent: "We've sent a confirmation email to your address. Please check your inbox and confirm your email within 15 minutes.",
-        adminApprovalRequired: "After confirming your email, your account will be pending admin approval. You will be able to login once an administrator approves your registration.",
-        registrationPending: "Your account has been created and is pending admin approval. You will be notified once approved.",
+        emailConfirmationSent:
+          "We've sent a confirmation email to your address. Please check your inbox and confirm your email within 15 minutes.",
+        adminApprovalRequired:
+          "After confirming your email, your account will be pending admin approval. You will be able to login once an administrator approves your registration.",
+        registrationPending:
+          "Your account has been created and is pending admin approval. You will be notified once approved.",
         backToLogin: "Back to Login",
         passwordResetTitle: "Password Reset",
-        passwordResetHint: "Enter your email and we'll send you a link to reset your password.",
-        passwordResetSent: "We sent a password reset link to your email. Please check your inbox.",
+        passwordResetHint:
+          "Enter your email and we'll send you a link to reset your password.",
+        passwordResetSent:
+          "We sent a password reset link to your email. Please check your inbox.",
         sendResetLink: "Send Reset Link",
         passwordResetSetTitle: "Set new password",
         passwordResetSetHint: "Create a new password for your account.",
-        passwordResetTokenMissing: "Reset token is missing. Open the reset link from your email.",
+        passwordResetTokenMissing:
+          "Reset token is missing. Open the reset link from your email.",
         resetToken: "Reset token",
         resetTokenPlaceholder: "Paste token from email",
         newPassword: "New password",
         newPasswordPlaceholder: "Enter new password",
         passwordResetSuccessTitle: "Password updated",
-        passwordResetSuccess: "Your password has been updated. You can now sign in.",
+        passwordResetSuccess:
+          "Your password has been updated. You can now sign in.",
         resettingPassword: "Saving...",
         openResetForm: "Open reset form",
       },
@@ -915,9 +965,15 @@ export const resources = {
         empty: "Your cart is empty.",
       },
       my: {
+        history: "History",
         subtitle: "Books you borrowed or reserved from the library.",
         owned: "My books",
         subscription: "Subscription",
+        tabs: {
+          all: "All",
+          active: "Reserved / Borrowed",
+          history: "Returned",
+        },
         searchPlaceholder: "Search in my books",
         empty: "No books yet.",
         emptyTaken: "No books on hand.",
@@ -980,7 +1036,8 @@ export const resources = {
           nameUpdate: "Could not update first and last name.",
           emailRequest: "Could not send email change request.",
           emailInvalid: "Enter a valid email, e.g. name@company.com.",
-          emailDomainDotMissing: "The email domain must contain a dot, for example: name@gmail.com.",
+          emailDomainDotMissing:
+            "The email domain must contain a dot, for example: name@gmail.com.",
           avatarUpload: "Could not upload avatar.",
           avatarType: "Please select an image file.",
           avatarSize: "File size must be less than 5 MB.",
@@ -1041,7 +1098,7 @@ export const resources = {
         rights: "All rights reserved",
       },
       pages: {
-        homeTitle: "Home",
+        homeTitle: "Picks and recommendations for you",
         homeSubtitle: "Build your library, track new releases, and save picks.",
         catalogTitle: "Catalog",
         searchTitle: "Search results",
@@ -1067,7 +1124,8 @@ export const resources = {
         booksLoad: "Could not load books. Check the API and try again.",
         rootNotFound: "Application root element not found.",
         fallbackTitle: "Something went wrong",
-        fallbackSubtitle: "An error occurred. Try refreshing the page or come back later.",
+        fallbackSubtitle:
+          "An error occurred. Try refreshing the page or come back later.",
         tryAgain: "Try again",
         reloadPage: "Reload page",
       },
@@ -1093,7 +1151,8 @@ export const resources = {
           limitReached:
             "You reached the active reservation limit. Return or cancel one of your current reservations first.",
           notAvailable: "This book is no longer available for reservation.",
-          alreadyReserved: "You already have an active reservation for this book.",
+          alreadyReserved:
+            "You already have an active reservation for this book.",
           generic: "Action failed. Please try again later.",
         },
       },
@@ -1286,14 +1345,18 @@ export const resources = {
         },
       },
       bookingNotifications: {
-        reservePickup: "You have 24 hours to pick up \"{{title}}\" from shelf {{location}}.",
-        takeSuccess: "You picked up \"{{title}}\". Expected return date: {{date}}.",
-        returnSuccess: "\"{{title}}\" was returned. Days in use: {{days}}. Leave a review?",
-        reservationExpired: "Your reservation for \"{{title}}\" was canceled due to timeout.",
+        reservePickup:
+          'You have 24 hours to pick up "{{title}}" from shelf {{location}}.',
+        takeSuccess:
+          'You picked up "{{title}}". Expected return date: {{date}}.',
+        returnSuccess:
+          '"{{title}}" was returned. Days in use: {{days}}. Leave a review?',
+        reservationExpired:
+          'Your reservation for "{{title}}" was canceled due to timeout.',
         reminderTwoWeeks:
-          "Reminder: you have had \"{{title}}\" for 2 weeks. Please return it within 2 weeks or contact an administrator for extension.",
+          'Reminder: you have had "{{title}}" for 2 weeks. Please return it within 2 weeks or contact an administrator for extension.',
         reminderFourWeeks:
-          "The return period for \"{{title}}\" has expired. Please return the book as soon as possible.",
+          'The return period for "{{title}}" has expired. Please return the book as soon as possible.',
       },
     },
   },
@@ -1340,6 +1403,11 @@ export const resources = {
         profileFallback: "Профиль",
         notifications: "Билдирмелер",
         language: "Интерфейс тили",
+        theme: "Тема",
+        themeLight: "Ачык",
+        themeDark: "Караңгы",
+        themeToggleToDark: "Караңгы темага которуу",
+        themeToggleToLight: "Ачык темага которуу",
         languages: {
           ru: "Орусча",
           en: "Англисче",
@@ -1386,13 +1454,12 @@ export const resources = {
         signIn: "Кирүү",
       },
       home: {
-        subtitle:
-          "Таза сунушталган текчелер: ашыкча фильтрлерсиз китепти тез табыңыз.",
+        subtitle: "Китепкананын бардык китептери",
         empty: "Азырынча көрсөтө турган китептер жок.",
       },
       catalog: {
         title: "Каталог",
-        subtitle: "Жанр, формат жана тил боюнча тандаңыз.",
+        subtitle: "Китепкананын бардык китептери",
         filters: "Чыпкалар",
         reset: "Тазалоо",
         all: "Бардыгы",
@@ -1453,7 +1520,8 @@ export const resources = {
         errors: {
           emailRequired: "Почтаны жазыңыз.",
           emailInvalid: "Туура почта жазыңыз, мисалы name@company.com.",
-          emailDomainDotMissing: "Почтанын доменинде чекит болушу керек, мисалы: name@gmail.com.",
+          emailDomainDotMissing:
+            "Почтанын доменинде чекит болушу керек, мисалы: name@gmail.com.",
           firstNameRequired: "Атыңызды жазыңыз.",
           lastNameRequired: "Фамилияңызды жазыңыз.",
           nameRequired: "Атыңызды жана фамилияңызды жазыңыз.",
@@ -1466,14 +1534,21 @@ export const resources = {
           registerFailed: "Катталуу ишке ашкан жок.",
           fileTooLarge: "Файлдын өлчөмү 5 МБ ашпашы керек",
           invalidFileType: "Сүрөт файлын тандаңыз",
-          emailNotConfirmed: "Эл. почтаңызды ырастаңыз. Ырастоо шилтемеси үчүн кат кутуңузду текшериңиз.",
-          accountNotApproved: "Сиздин аккаунтуңуз администратордун макулдугун күтүүдө. Катталууңузду администратор макулдагандан кийин киресиз.",
-          accountDisabled: "Сиздин аккаунтуңуз өчүрүлгөн. Администратор менен байланышыңыз.",
+          emailNotConfirmed:
+            "Эл. почтаңызды ырастаңыз. Ырастоо шилтемеси үчүн кат кутуңузду текшериңиз.",
+          accountNotApproved:
+            "Сиздин аккаунтуңуз администратордун макулдугун күтүүдө. Катталууңузду администратор макулдагандан кийин киресиз.",
+          accountDisabled:
+            "Сиздин аккаунтуңуз өчүрүлгөн. Администратор менен байланышыңыз.",
           passwordTooShort: "Сыр сөз кеминде 6 белгиден турушу керек.",
-          passwordResetRequestFailed: "Калыбына келтирүү шилтемесин жөнөтүү мүмкүн болгон жок. Кийинчерээк кайталаңыз.",
-          resetTokenRequired: "Калыбына келтирүү токени жок. Почтадагы шилтемени колдонуңуз.",
-          passwordResetFailed: "Сыр сөздү жаңыртуу мүмкүн болгон жок. Жаңы шилтеме сураңыз.",
-          passwordResetRateLimited: "Бул почта үчүн кайра сурамды {{minutes}} мүнөттөн кийин жөнөтсө болот.",
+          passwordResetRequestFailed:
+            "Калыбына келтирүү шилтемесин жөнөтүү мүмкүн болгон жок. Кийинчерээк кайталаңыз.",
+          resetTokenRequired:
+            "Калыбына келтирүү токени жок. Почтадагы шилтемени колдонуңуз.",
+          passwordResetFailed:
+            "Сыр сөздү жаңыртуу мүмкүн болгон жок. Жаңы шилтеме сураңыз.",
+          passwordResetRateLimited:
+            "Бул почта үчүн кайра сурамды {{minutes}} мүнөттөн кийин жөнөтсө болот.",
         },
         registerTitle: "Профиль түзүү",
         emailFree: "Дарек катталууга бош",
@@ -1497,23 +1572,30 @@ export const resources = {
         showPassword: "Сыр сөздү көрсөтүү",
         hidePassword: "Сыр сөздү жашыруу",
         registrationSuccess: "Катталуу ийгиликтүү!",
-        emailConfirmationSent: "Биз сиздин дарегиңизге ырастоо катын жөнөттүк. Кат кутуңузду текшериңиз жана 15 мүнөттүн ичинде эл. почтаңызды ырастаңыз.",
-        adminApprovalRequired: "Эл. почтаңызды ырастагандан кийин, сиздин аккаунтуңуз администратордун макулдугун күтөт. Администратор катталууңузду макулдагандан кийин киресиз.",
-        registrationPending: "Сиздин аккаунтуңуз түзүлдү жана администратордун тастыктоосун күтүүдө. Тастыкталгандан кийин билдирме алаасыз.",
+        emailConfirmationSent:
+          "Биз сиздин дарегиңизге ырастоо катын жөнөттүк. Кат кутуңузду текшериңиз жана 15 мүнөттүн ичинде эл. почтаңызды ырастаңыз.",
+        adminApprovalRequired:
+          "Эл. почтаңызды ырастагандан кийин, сиздин аккаунтуңуз администратордун макулдугун күтөт. Администратор катталууңузду макулдагандан кийин киресиз.",
+        registrationPending:
+          "Сиздин аккаунтуңуз түзүлдү жана администратордун тастыктоосун күтүүдө. Тастыкталгандан кийин билдирме алаасыз.",
         backToLogin: "Кирүүгө кайтуу",
         passwordResetTitle: "Сыр сөздү калыбына келтирүү",
-        passwordResetHint: "Почтаңызды жазыңыз, биз сизге сыр сөздү калыбына келтирүү шилтемесин жөнөтөбүз.",
-        passwordResetSent: "Биз сиздин почтаңызга сыр сөздү калыбына келтирүү шилтемесин жөнөттүк. Кат кутусун текшериңиз.",
+        passwordResetHint:
+          "Почтаңызды жазыңыз, биз сизге сыр сөздү калыбына келтирүү шилтемесин жөнөтөбүз.",
+        passwordResetSent:
+          "Биз сиздин почтаңызга сыр сөздү калыбына келтирүү шилтемесин жөнөттүк. Кат кутусун текшериңиз.",
         sendResetLink: "Шилтеме жөнөтүү",
         passwordResetSetTitle: "Жаңы сыр сөз коюу",
         passwordResetSetHint: "Аккаунтуңуз үчүн жаңы сыр сөз түзүңүз.",
-        passwordResetTokenMissing: "Калыбына келтирүү токени жок. Почтадагы шилтемени ачыңыз.",
+        passwordResetTokenMissing:
+          "Калыбына келтирүү токени жок. Почтадагы шилтемени ачыңыз.",
         resetToken: "Калыбына келтирүү токени",
         resetTokenPlaceholder: "Каттагы токенди бул жерге чаптаңыз",
         newPassword: "Жаңы сыр сөз",
         newPasswordPlaceholder: "Жаңы сыр сөздү жазыңыз",
         passwordResetSuccessTitle: "Сыр сөз жаңыртылды",
-        passwordResetSuccess: "Сыр сөз ийгиликтүү жаңыртылды. Эми кирсеңиз болот.",
+        passwordResetSuccess:
+          "Сыр сөз ийгиликтүү жаңыртылды. Эми кирсеңиз болот.",
         resettingPassword: "Сакталууда...",
         openResetForm: "Калыбына келтирүү формасын ачуу",
       },
@@ -1561,9 +1643,15 @@ export const resources = {
         empty: "Себет бош.",
       },
       my: {
+        history: "Тарых",
         subtitle: "Китепканадан алган же брондоого алган китептериңиз.",
         owned: "Менин китептерим",
         subscription: "Жазылуу",
+        tabs: {
+          all: "Баары",
+          active: "Брондолгон / Колдо",
+          history: "Кайтарылган",
+        },
         searchPlaceholder: "Менин китептеримден издөө",
         empty: "Азырынча китеп жок.",
         emptyTaken: "Колуңузда китеп жок.",
@@ -1584,7 +1672,8 @@ export const resources = {
       },
       profile: {
         title: "Жеке кабинет",
-        subtitle: "Профиль маалыматтары backend endpoint’тер менен байланышкан.",
+        subtitle:
+          "Профиль маалыматтары backend endpoint’тер менен байланышкан.",
         tab: "Профиль",
         role: "Роль",
         nameMissing: "Аты көрсөтүлгөн эмес",
@@ -1626,7 +1715,8 @@ export const resources = {
           nameUpdate: "Атын жана фамилиясын жаңыртуу мүмкүн болгон жок.",
           emailRequest: "Email өзгөртүү сурамын жөнөтүү мүмкүн болгон жок.",
           emailInvalid: "Туура почта жазыңыз, мисалы name@company.com.",
-          emailDomainDotMissing: "Почтанын доменинде чекит болушу керек, мисалы: name@gmail.com.",
+          emailDomainDotMissing:
+            "Почтанын доменинде чекит болушу керек, мисалы: name@gmail.com.",
           avatarUpload: "Аватар жүктөө мүмкүн болгон жок.",
           avatarType: "Сураныч, сүрөт файлын тандаңыз.",
           avatarSize: "Файл өлчөмү 5 MB дан кичине болушу керек.",
@@ -1687,7 +1777,7 @@ export const resources = {
         rights: "Бардык укуктар корголгон",
       },
       pages: {
-        homeTitle: "Башкы бет",
+        homeTitle: "Сиз үчүн тандоолор жана сунуштар",
         homeSubtitle: "Китептерди топтоп, жаңылыктарды көзөмөлдөп туруңуз.",
         catalogTitle: "Каталог",
         searchTitle: "Издөө жыйынтыгы",
@@ -1710,7 +1800,8 @@ export const resources = {
         notAvailable: "—",
       },
       errors: {
-        booksLoad: "Китептерди жүктөө мүмкүн болгон жок. API'ды текшерип кайра аракет кылыңыз.",
+        booksLoad:
+          "Китептерди жүктөө мүмкүн болгон жок. API'ды текшерип кайра аракет кылыңыз.",
         rootNotFound: "Тиркеменин негизги элементи табылган жок.",
         fallbackTitle: "Бир нерсе туура эмес кетти",
         fallbackSubtitle:
@@ -1771,8 +1862,10 @@ export const resources = {
         saveEdit: "Өзгөртүүлөрдү сактоо",
         submit: "Пикир калтыруу",
         duplicateError: "Сиз бул китепке буга чейин пикир калтыргансыз.",
-        submitError: "Пикирди жөнөтүү мүмкүн болгон жок. Кийинчерээк кайталаңыз.",
-        deleteError: "Пикирди өчүрүү мүмкүн болгон жок. Кийинчерээк кайталаңыз.",
+        submitError:
+          "Пикирди жөнөтүү мүмкүн болгон жок. Кийинчерээк кайталаңыз.",
+        deleteError:
+          "Пикирди өчүрүү мүмкүн болгон жок. Кийинчерээк кайталаңыз.",
       },
       admin: {
         layout: {
@@ -1933,14 +2026,18 @@ export const resources = {
         },
       },
       bookingNotifications: {
-        reservePickup: "\"{{title}}\" китебин {{location}} текчесинен алуу үчүн 24 саатыңыз бар.",
-        takeSuccess: "Сиз \"{{title}}\" китебин алдыңыз. Болжолдуу кайтаруу күнү: {{date}}.",
-        returnSuccess: "\"{{title}}\" кайтарылды. Колдо болгон күндөр: {{days}}. Пикир калтырасызбы?",
-        reservationExpired: "\"{{title}}\" китебине болгон бронуңуз убактысы өтүп кеткендиктен жокко чыгарылды.",
+        reservePickup:
+          '"{{title}}" китебин {{location}} текчесинен алуу үчүн 24 саатыңыз бар.',
+        takeSuccess:
+          'Сиз "{{title}}" китебин алдыңыз. Болжолдуу кайтаруу күнү: {{date}}.',
+        returnSuccess:
+          '"{{title}}" кайтарылды. Колдо болгон күндөр: {{days}}. Пикир калтырасызбы?',
+        reservationExpired:
+          '"{{title}}" китебине болгон бронуңуз убактысы өтүп кеткендиктен жокко чыгарылды.',
         reminderTwoWeeks:
-          "Эскертүү: \"{{title}}\" китеби сизде 2 жума болду. Сураныч, аны 2 жуманын ичинде кайтарыңыз же узартуу үчүн администраторго кайрылыңыз.",
+          'Эскертүү: "{{title}}" китеби сизде 2 жума болду. Сураныч, аны 2 жуманын ичинде кайтарыңыз же узартуу үчүн администраторго кайрылыңыз.',
         reminderFourWeeks:
-          "\"{{title}}\" китебинин кайтаруу мөөнөтү өттү. Сураныч, китепти мүмкүн болушунча тез кайтарыңыз.",
+          '"{{title}}" китебинин кайтаруу мөөнөтү өттү. Сураныч, китепти мүмкүн болушунча тез кайтарыңыз.',
       },
     },
   },
